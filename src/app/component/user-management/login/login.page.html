@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Welcome to Lfscare Portal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="form-content">
+  <form [formGroup]="login_form"  (ngSubmit)="onLogin(login_form.value)">
+
+    <ion-item>
+      <ion-label position="floating" color="primary">Username</ion-label>
+      <ion-input type="text" formControlName="username"></ion-input>
+    </ion-item>
+
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.username">
+        <div class="error-message" *ngIf="login_form.get('username').hasError(validation.type) && (login_form.get('username').dirty || login_form.get('username').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating" color="primary">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div class="error-message" *ngIf="login_form.get('password').hasError(validation.type) && (login_form.get('password').dirty || login_form.get('password').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button color="primary" class="submit-btn" expand="full" type="submit" [disabled]="!login_form.valid">Login</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="primary" class="submit-btn" expand="full" type="button" (click)="goToSignup()">Register</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </form>
+</ion-content>

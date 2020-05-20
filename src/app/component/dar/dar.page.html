@@ -1,0 +1,95 @@
+<ion-header>
+    <ion-buttons slot="start" class="back-btn">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+  <ion-toolbar>
+    <ion-title >time-and-date</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <p class="date-heading">Date and time</p>
+    <ul class="scroll-container"
+    (mouseleave)="showScroll = false"
+    (mouseenter)="showScroll = true"
+    [ngClass]="{'show-scroll' : showScroll}">
+        <li *ngFor="let date of allDates"   (click)="selectDarDate($event, date)"  [ngClass]="{'active': darDate === date}" ><span>{{dayOfMonth(date.getDay())}}</span><b>{{date.getDate()}}</b></li>
+    </ul>
+
+
+
+    <ion-grid>
+      <ion-row>
+
+            <ion-col size="3" *ngFor="let slot of allSlots">
+
+                 <div class="time-slots" (click)="selectSlot(slot)" [ngClass]="{'selectedSlot': darSlot.name === slot.name}" ><p [ngClass]="{'selectedSlot': darSlot.name === slot.name}">{{slot.name}}</p></div>
+
+            </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <p class="date-heading">Address</p>
+    <!-- IF address not available -->
+    <!-- <div class="add-new-address">
+        <ion-icon name="add-circle-outline"></ion-icon>
+        <p>Add new address</p>
+    </div> -->
+
+
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+            <ion-item>
+                <ion-label position="floating" color="primary">State</ion-label>
+                <ion-select [(ngModel)]="selectedState" (ionChange)="onChangeState()"   interface="popover" placeholder="Select one">
+                    <ion-select-option *ngFor="let state of states"  [value]="state.id">
+                        {{state.name}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            </ion-col>
+            <ion-col>
+            <ion-item>
+                <ion-label position="floating" color="primary">City</ion-label>
+                <ion-select [(ngModel)]="selectedCity"  interface="popover" placeholder="Select one" >
+                    <ion-select-option *ngFor="let city of cities"  [value]="city.id">
+                        {{city.name}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div class="address-added">
+        <!-- <ion-icon name="add-circle-outline"></ion-icon> -->
+        <ion-icon name="create-outline"></ion-icon>
+        <ion-textarea [(ngModel)]="darAddress" placeholder="Name and full address"></ion-textarea>
+    </div>
+
+    <p class="date-heading">Description</p>
+    <div class="text-area">
+        <ion-textarea  [(ngModel)]="darDescription" placeholder="Request Description..."></ion-textarea>
+      <ion-grid>
+        <ion-row>
+          <!--<ion-col size="5">-->
+              <!--<ion-button color="primary" size="full" [routerLink]="['/select-provider']">CHOOSE PROVIDER</ion-button>-->
+          <!--</ion-col>-->
+          <!--<ion-col size="2">-->
+              <!--<p class="text-center">or</p>-->
+          <!--</ion-col>-->
+          <!--<ion-col size="5">-->
+              <!--<ion-button color="primary" size="full" >ON DEMAND</ion-button>-->
+          <!--</ion-col>-->
+
+          <ion-col col="12">
+              <ion-button color="success" size="full"  (click)="saveBooking()" >CONTINUE BOKKING</ion-button>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>     
+    </div>
+</ion-content>
